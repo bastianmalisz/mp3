@@ -40,6 +40,8 @@
 
   
     <script>
+        createPlaylist();
+        document.addEventListener("load",createPlaylist);
         const piosenki =[
         "A Perfect Circle - Disillusioned",
         "Big Wild feat. Yuna - Empty Room (Sofi Tukker Remix)",
@@ -65,7 +67,7 @@
                 div.innerHTML = piosenki[i];
             }
         }
-document.addEventListener("load",createPlaylist)
+
         let musicTrack = "";
         detectClick(musicTrack);
 
