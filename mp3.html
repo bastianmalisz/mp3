@@ -55,8 +55,9 @@
         "Unlike Pluto - Sweet (feat. Mister Blonde)"
         ]
         function createPlaylist(){
-            let div = document.createElement("div");
+            
             for(let i = 0; i< piosenki.length; i++){
+                let div = document.createElement("div");
                 document.querySelector(".mp-playlist").appendChild(div);
                 div.classList.add("mp-playlist-element")
                 div.id = "el-"+i;
