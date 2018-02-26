@@ -65,6 +65,7 @@
                 div.innerHTML = piosenki[i];
             }
         }
+        createPlaylist();
         let musicTrack = "";
         detectClick(musicTrack);
 
@@ -84,7 +85,7 @@
             
    
     runn(musicTrack);
-    document.onload = createPlaylist();
+   
   
     function runn(musicTrack) {
         var audio = document.getElementById("audio");
