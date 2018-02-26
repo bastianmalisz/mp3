@@ -6,8 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="mp-style.css"></link>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
-
-    
     <title>mpdrei</title>
 </head>
 <body>
@@ -15,26 +13,10 @@
         <div class="mp-music-video">
             <canvas id="canvas"></canvas>
         </div>
-        
-            <div class="mp-controls">
-                    <audio id="audio" src="music/music1.mp3" crossorigin="anonymous" controls></audio>
-                    
-            </div>
-        <div class ="mp-playlist">
-            <!-- <div class="mp-playlist-element" id="el-0" data-value="music/music0.mp3">A Perfect Circle - Disillusioned</div>
-            <div class="mp-playlist-element" id="el-1" data-value="music/music1.mp3">Big Wild feat. Yuna - Empty Room (Sofi Tukker Remix)</div>
-            <div class="mp-playlist-element" id="el-2"  data-value="music/music2.mp3">Busy P - Genie feat. Mayer Hawthorne</div>
-            <div class="mp-playlist-element" id="el-3" data-value="music/music3.mp3">DROELOE - Homebound</div>
-            <div class="mp-playlist-element" id="el-4" data-value="music/music4.mp3">Fakear - Song For Jo</div>
-            <div class="mp-playlist-element" id="el-5" data-value="music/music5.mp3">Feder feat. Alex Aiono - Lordly</div>
-            <div class="mp-playlist-element" id="el-6" data-value="music/music6.mp3">Jabberwocky  Fog (feat. Ana Zimmer)</div>
-            <div class="mp-playlist-element" id="el-7" data-value="music/music7.mp3">Melvv x MOONZz - Goodbye</div>
-            <div class="mp-playlist-element" id="el-8" data-value="music/music8.mp3">Naive New Beaters - Words Hurt</div>
-            <div class="mp-playlist-element" id="el-9" data-value="music/music9.mp3">Paul Damixie - Get Lost</div>
-            <div class="mp-playlist-element" id="el-10" data-value="music/music10.mp3">Phoenix - J-Boy</div>
-            <div class="mp-playlist-element" id="el-11" data-value="music/music11.mp3">Slightly Left of Centre - Naked</div>
-            <div class="mp-playlist-element" id="el-12 " data-value="music/music12.mp3">Unlike Pluto - Sweet (feat. Mister Blonde)</div> -->
+        <div class="mp-controls">
+            <audio id="audio" src="music/music1.mp3" crossorigin="anonymous" controls></audio>
         </div>
+        <div class ="mp-playlist"></div>
     </div>
    
 
@@ -71,85 +53,59 @@
         detectClick(musicTrack);
 
         function detectClick(){
-                
-                const parentEl = document.querySelector(".mp-playlist");
-                parentEl.addEventListener('click', function(e){
-                
-                    console.log(e.target.id,e.target.dataset.value);
-                    musicTrack = `${e.target.dataset.value}`;
-                    run();
-                    return musicTrack;
+            const parentEl = document.querySelector(".mp-playlist");
+            parentEl.addEventListener('click', function(e){
+                 musicTrack = `${e.target.dataset.value}`;
+                 run();
+                 return musicTrack;
                 });
             }
-       
-        function run() {
+       function run() {
+        runn(musicTrack);
+        function runn(musicTrack) {
+            var audio = document.getElementById("audio");
+            audio.src=musicTrack;
+            audio.setAttribute('crossorigin', 'anonymous');  
+            audio.play();
+            var context = new AudioContext();
+            var src = context.createMediaElementSource(audio);
+            var analyser = context.createAnalyser();
             
-   
-    runn(musicTrack);
-   
-  
-    function runn(musicTrack) {
-        var audio = document.getElementById("audio");
-        audio.src=musicTrack;
-        audio.setAttribute('crossorigin', 'anonymous');  
-    audio.play();
-    
-
-    
-    var context = new AudioContext();
-    var src = context.createMediaElementSource(audio);
-    var analyser = context.createAnalyser();
-    
-    var canvas = document.getElementById("canvas");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    var ctx = canvas.getContext("2d");
-    
-    src.connect(analyser);
-    analyser.connect(context.destination);
-
-    analyser.fftSize = 256;
-
-    var bufferLength = analyser.frequencyBinCount;
-    console.log(bufferLength);
-
-    var dataArray = new Uint8Array(bufferLength);
-
-    var WIDTH = canvas.width;
-    var HEIGHT = canvas.height;
-
-    var barWidth = (WIDTH / bufferLength) * 2.5;
-    var barHeight;
-    var x = 0;
+            var canvas = document.getElementById("canvas");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            var ctx = canvas.getContext("2d");
+            src.connect(analyser);
+            analyser.connect(context.destination);
+            analyser.fftSize = 256;
+            var bufferLength = analyser.frequencyBinCount;
+            var dataArray = new Uint8Array(bufferLength);
+            var WIDTH = canvas.width;
+            var HEIGHT = canvas.height;
+            var barWidth = (WIDTH / bufferLength) * 2.5;
+            var barHeight;
+            var x = 0;
 
     function renderFrame() {
       requestAnimationFrame(renderFrame);
-
-      x = 0;
-
-      analyser.getByteFrequencyData(dataArray);
+        x = 0;
+        analyser.getByteFrequencyData(dataArray);
         // kolor wypelienia canvasa
-      ctx.fillStyle = "rgba(192, 192, 192, 0.067)";
-      // context.fillRect(x,y,width,height) x-  koordy gorny-lewy naroznik ile w prawo (na minusie w lewo); y - gorny-lewy naroznik ile w dol (na minusie w gore)
-      ctx.fillRect(0, 0, WIDTH, HEIGHT);
-
-      for (var i = 0; i < bufferLength; i++) {
-        barHeight = dataArray[i];
-        
-        var r = barHeight + (25 * (i/bufferLength));
-        var g = 250 * (i/bufferLength);
-        var b = 50;
-
-        ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-        ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
-
-        x += barWidth + 1;
-      }
+        ctx.fillStyle = "rgba(192, 192, 192, 0.067)";
+        // context.fillRect(x,y,width,height) x-  koordy gorny-lewy naroznik ile w prawo (na minusie w lewo); y - gorny-lewy naroznik ile w dol (na minusie w gore)
+        ctx.fillRect(0, 0, WIDTH, HEIGHT);
+          for (var i = 0; i < bufferLength; i++) {
+            barHeight = dataArray[i];
+            var r = barHeight + (25 * (i/bufferLength));
+            var g = 250 * (i/bufferLength);
+            var b = 50;
+            ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+            ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+            x += barWidth + 1;
+            }
     }
-
-    audio.play();
-    
-    renderFrame();
+audio.play();
+renderFrame();
     
   };
 };
