@@ -21,7 +21,7 @@
                     
             </div>
         <div class ="mp-playlist">
-            <!-- <div class="mp-playlist-element" id="el-0" data-value="music/music0.mp3">A Perfect Circle - Disillusioned</div>
+            <div class="mp-playlist-element" id="el-0" data-value="music/music0.mp3">A Perfect Circle - Disillusioned</div>
             <div class="mp-playlist-element" id="el-1" data-value="music/music1.mp3">Big Wild feat. Yuna - Empty Room (Sofi Tukker Remix)</div>
             <div class="mp-playlist-element" id="el-2"  data-value="music/music2.mp3">Busy P - Genie feat. Mayer Hawthorne</div>
             <div class="mp-playlist-element" id="el-3" data-value="music/music3.mp3">DROELOE - Homebound</div>
@@ -33,37 +33,37 @@
             <div class="mp-playlist-element" id="el-9" data-value="music/music9.mp3">Paul Damixie - Get Lost</div>
             <div class="mp-playlist-element" id="el-10" data-value="music/music10.mp3">Phoenix - J-Boy</div>
             <div class="mp-playlist-element" id="el-11" data-value="music/music11.mp3">Slightly Left of Centre - Naked</div>
-            <div class="mp-playlist-element" id="el-12 " data-value="music/music12.mp3">Unlike Pluto - Sweet (feat. Mister Blonde)</div> -->
+            <div class="mp-playlist-element" id="el-12 " data-value="music/music12.mp3">Unlike Pluto - Sweet (feat. Mister Blonde)</div>
         </div>
     </div>
    
 
   
     <script>
-        const piosenki =[
-        "A Perfect Circle - Disillusioned",
-        "Big Wild feat. Yuna - Empty Room (Sofi Tukker Remix)",
-        "Busy P - Genie feat. Mayer Hawthorne",
-        "DROELOE - Homebound",
-        "Fakear - Song For Jo",
-        "Jabberwocky  Fog (feat. Ana Zimmer)",
-        "Melvv x MOONZz - Goodbye",
-        "Naive New Beaters - Words Hurt",
-        "Paul Damixie - Get Lost",
-        "Phoenix - J-Boy",
-        "Slightly Left of Centre - Naked",
-        "Unlike Pluto - Sweet (feat. Mister Blonde)"
-        ]
-        function createPlaylist(){
-            let div = document.createElement("div");
-            for(let i = 0; i< piosenki.length; i++){
-                document.querySelector(".mp-playlist").appendChild(div);
-                div.classList.add("mp-playlist-element")
-                div.id = "el-"+i;
-                div.setAttribute("data-value","music/music"+i+".mp3")
-                div.innerHTML = piosenki[i];
-            }
-        }
+        // const piosenki =[
+        // "A Perfect Circle - Disillusioned",
+        // "Big Wild feat. Yuna - Empty Room (Sofi Tukker Remix)",
+        // "Busy P - Genie feat. Mayer Hawthorne",
+        // "DROELOE - Homebound",
+        // "Fakear - Song For Jo",
+        // "Jabberwocky  Fog (feat. Ana Zimmer)",
+        // "Melvv x MOONZz - Goodbye",
+        // "Naive New Beaters - Words Hurt",
+        // "Paul Damixie - Get Lost",
+        // "Phoenix - J-Boy",
+        // "Slightly Left of Centre - Naked",
+        // "Unlike Pluto - Sweet (feat. Mister Blonde)"
+        // ]
+        // function createPlaylist(){
+        //     let div = document.createElement("div");
+        //     for(let i = 0; i< piosenki.length; i++){
+        //         document.querySelector(".mp-playlist").appendChild(div);
+        //         div.classList.add("mp-playlist-element")
+        //         div.id = "el-"+i;
+        //         div.setAttribute("data-value","music/music"+i+".mp3")
+        //         div.innerHTML = piosenki[i];
+        //     }
+        // }
         let musicTrack = "";
         detectClick(musicTrack);
 
@@ -83,7 +83,7 @@
             
    
     runn(musicTrack);
-    document.onload = createPlaylist();
+    // document.onload = createPlaylist();
   
     function runn(musicTrack) {
         var audio = document.getElementById("audio");
